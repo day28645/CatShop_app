@@ -17,7 +17,7 @@ const ListProduct = () => {
             },
           })
           .then((res) => {
-            console.log(res.data);
+            //console.log(res.data);
             setCat(res.data);
           });
       } catch (error) {
@@ -26,6 +26,29 @@ const ListProduct = () => {
     };
     getProduct();
   }, []);
+
+  const onSubmit = async () => {
+    try {
+      console.log(accessToken);
+      console.log(cat[0].catid);
+      const catid = cat[0].catid;
+      const request = {
+        catid: catid,
+      };
+      const response = axios.post(
+        "https://localhost:7092/api/Orders/CreateOrder",
+        request,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section id="clothing" className="my-5 overflow-hidden">
@@ -43,27 +66,42 @@ const ListProduct = () => {
                     />
                   </a>
                   {cat.map((item) => {
-                    return;
-                    <div value={item.catid}>
-                      <h3 className="card-title pt-4 m-0">{item.catStatus}</h3>
-                    </div>;
-                  })}
+                    return (
+                      <div>
+                        <div value={item.catid}>
+                          <h3 className="card-title pt-4 m-0">
+                            {item.catName}
+                          </h3>
+                        </div>
 
-                  <div className="card-body p-0">
-                    <a href="single-product.html">
-                      <h3 className="card-title pt-4 m-0">Grey hoodie</h3>
-                    </a>
+                        <div className="card-body p-0">
+                          <h3 className="card-title pt-4 m-0">
+                            {item.catdetails}
+                          </h3>
 
-                    <div className="card-text">
-                      <h3 className="secondary-font text-primary">$18.00</h3>
+                          <div className="card-text">
+                            <h3 className="secondary-font text-primary">
+                              {item.price} Bath
+                            </h3>
 
-                      <div className="d-flex flex-wrap mt-3">
-                        <a href="#" className="btn-cart me-3 px-4 pt-3 pb-3">
-                          <h5 className="text-uppercase m-0">Add to Cart</h5>
-                        </a>
+                            <div className="d-flex flex-wrap mt-3">
+                              <button
+                                className="btn-cart me-3 px-4 pt-3 pb-3"
+                                type="text"
+                                onClick={() => {
+                                  onSubmit();
+                                }}
+                              >
+                                <h5 className="text-uppercase m-0">
+                                  Add to Cart
+                                </h5>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>

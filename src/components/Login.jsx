@@ -16,10 +16,11 @@ const Login = () => {
       );
       console.log(response);
       if (response.status === 200) {
-        localStorage.setItem("username", response.data.userName);
+        //localStorage.setItem("username", response.data.userName);
         localStorage.setItem("token", response.data.token);
-        navigate("/addproduct");
-        //navigate("/listproduct");
+        //localStorage.setItem("userid", response.data.userid);
+        //navigate("/addproduct");
+        navigate("/listproduct");
       }
     } catch (error) {
       console.error(error);
