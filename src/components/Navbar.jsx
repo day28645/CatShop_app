@@ -1,10 +1,16 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const accessToken = localStorage.getItem("token");
   //console.log(accessToken);
+  const count = useSelector((state) => state.userauth);
+  const [order , setOrder] = useState({
+    countOrder: 0,
+    fullName: ""
+  })
 
   useEffect(() => {
     //console.log(accessToken);
@@ -15,7 +21,10 @@ const Navbar = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log(res);
+      //console.log(res);
+      if(res.status == 200) {
+        setOrder(res.data);
+      }
     };
     getCart();
   }, []);
@@ -115,7 +124,7 @@ const Navbar = () => {
                     className="fs-4 position-relative"
                   ></iconify-icon>
                   <span className="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
-                    03
+                    
                   </span>
                 </a>
               </li>
@@ -163,13 +172,6 @@ const Navbar = () => {
             </div>
 
             <div className="offcanvas-body justify-content-between">
-              <select className="filter-categories border-0 mb-0 me-5">
-                <option>Shop by Category</option>
-                <option>Clothes</option>
-                <option>Food</option>
-                <option>Food</option>
-                <option>Toy</option>
-              </select>
 
               <ul className="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0">
                 <li className="nav-item">
@@ -354,21 +356,20 @@ const Navbar = () => {
 
                   <li className="">
                     <a
-                      href="#"
+                      href="/cart"
                       className="mx-3"
-                      data-bs-toggle="offcanvas"
-                      data-bs-target="#offcanvasCart"
-                      aria-controls="offcanvasCart"
+
                     >
                       <iconify-icon
                         icon="mdi:cart"
                         className="fs-4 position-relative"
                       ></iconify-icon>
                       <span className="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
-                        03
+                        {order.countOrder}
                       </span>
                     </a>
                   </li>
+                   
                 </ul>
               </div>
             </div>

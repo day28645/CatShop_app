@@ -16,11 +16,13 @@ const Login = () => {
       );
       console.log(response);
       if (response.status === 200) {
-        //localStorage.setItem("username", response.data.userName);
-        localStorage.setItem("token", response.data.token);
-        //localStorage.setItem("userid", response.data.userid);
-        //navigate("/addproduct");
-        navigate("/listproduct");
+        if (response.data.isSuceess === true) {
+          localStorage.setItem("token", response.data.token);
+          navigate("/listproduct");
+        }
+      } else {
+        alert("Password or Username is Incorrect");
+        console.log("Password is Incorrect");
       }
     } catch (error) {
       console.error(error);
