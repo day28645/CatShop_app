@@ -14,11 +14,13 @@ const Login = () => {
         "https://localhost:7092/api/Logins/LoginUser",
         { username, password }
       );
-      console.log(response);
+      //console.log(response);
       if (response.status === 200) {
         if (response.data.isSuceess === true) {
           localStorage.setItem("token", response.data.token);
+          alert(response.data.message);
           navigate("/listproduct");
+          //navigate("/addproduct");
         }
       } else {
         alert("Password or Username is Incorrect");

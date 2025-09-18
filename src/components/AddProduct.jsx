@@ -65,7 +65,7 @@ const AddProduct = () => {
       formData.append("Size", form.size);
       formData.append("Breedid", form.breedid);
       formData.append("CatStatus", form.catstatus);
-
+      console.log(formData)
       const myheader = {
         "content-type": "multipart/form-data",
         Authorization: `Bearer ${accessToken}`,

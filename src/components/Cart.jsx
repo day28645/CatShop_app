@@ -15,15 +15,13 @@ const ListCart = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log(response);
+      console.log('response',response);
       setOrder(response.data);
       let sumTotal = 0;
-      console.log(response.data.length);
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < response.data.length; i++) {
         sumTotal += response.data[i].price;
       }
       setTotal(sumTotal);
-      console.log(sumTotal);
     };
     getListCart();
   }, []);
@@ -85,9 +83,9 @@ const ListCart = () => {
                             type="text"
                             id="quantity"
                             name="quantity"
-                            className="form-control input-number text-center p-2 mx-1"
+                            className="form-control-plaintext input-number text-center p-2 mx-1"
                             value="1"
-                            disabled
+                            disabled 
                           />
                           <span className="input-group-btn"></span>
                         </div>
@@ -95,7 +93,17 @@ const ListCart = () => {
                       <td className="py-4 align-middle">
                         <div className="total-price">
                           <span className="secondary-font fw-medium">
-                            ฿ {item.price}
+                            ฿ {item.price} 
+                            <div className="remove-cart">
+                            <a href="#">
+                              <sv>
+                                <use xlinkHref="#trash">
+
+                              </use>
+                              </sv>
+                              
+                            </a>
+                            </div>
                           </span>
                         </div>
                       </td>
